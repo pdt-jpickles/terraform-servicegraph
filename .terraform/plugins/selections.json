@@ -1,6 +1,0 @@
-{
-  "registry.terraform.io/pagerduty/pagerduty": {
-    "hash": "h1:bMMQuBSVGnn0Fr4GcMm+6x2smhzMzbAW3ISX7Xb8joo=",
-    "version": "2.7.0"
-  }
-}
