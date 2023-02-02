@@ -9,7 +9,6 @@
 resource "pagerduty_escalation_policy" "support" {
   name      = "Support (EP)"
   num_loops = 3
-  teams     = [pagerduty_team.support.id]
   rule {
     escalation_delay_in_minutes = 5
     target {
@@ -42,7 +41,6 @@ resource "pagerduty_escalation_policy" "support" {
 resource "pagerduty_escalation_policy" "operations" {
   name      = "Operations (EP)"
   num_loops = 3
-  teams     = [pagerduty_team.operations.id]
   rule {
     escalation_delay_in_minutes = 15
     target {
@@ -74,7 +72,6 @@ resource "pagerduty_escalation_policy" "operations" {
 */
 resource "pagerduty_escalation_policy" "it_management" {
   name      = "IT Management (EP)"
-  teams     = [pagerduty_team.it_management.id]
   rule {
     escalation_delay_in_minutes = 15
     target {

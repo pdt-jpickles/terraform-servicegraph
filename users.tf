@@ -11,6 +11,7 @@ resource "pagerduty_user" "noah_cooper" {
   email = "noah_cooper@example.com"
   role  = "limited_user"
 }
+
 /* 
   Operations
 */
@@ -19,6 +20,7 @@ resource "pagerduty_user" "paul_miller" {
   email = "paul_miller@example.com"
   role  = "limited_user"
 }
+
 /* 
   IT Management
 */

@@ -13,18 +13,11 @@ provider "pagerduty" {
   token = var.PAGERDUTY_TOKEN
 }
 
-# Add objects common across all industries (users, teams, escalations policies etc.)
-module "common_objects" {
-  source = "./common_objects"
-}
-
 
 # CSV implementation for services
 locals {
   
-  depends_on = [module.common_objects]
-
-  default_esc_pol = module.common_objects.ops_esc_pol_id
+  default_esc_pol = pagerduty_escalation_policy.operations.id
 
   included_files = fileset(path.module, "/include_in_build/*.csv")
 
