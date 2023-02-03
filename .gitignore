@@ -1,3 +1,5 @@
 # ignore ALL terraform state files and terraform directory
 *.tfstate*
 .terraform/
+.DS_Store
+.terraform.lock.hcl
