@@ -27,7 +27,7 @@ resource "pagerduty_user" "paul_miller" {
 resource "pagerduty_user" "ronald_green" {
   name  = "Ronald Green"
   email = "ronald_green@example.com"
-  role  = "admin"
+  role  = "limited_user"
 }
 
 
