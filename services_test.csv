@@ -1,6 +1,0 @@
-ServiceName,ServiceDescription,ServiceID,ServiceType,SupportingServices,EscPol
-TopLevel,Top level business service,1,business_service,2;3,
-SecondLevel1,Second level technical service,2,service,3;4;5,
-SecondLevel2,Another second level technical service,3,service,4,
-ThirdLevel,My third level,4,service,5,
-4thLevel,keep o going,5,service,,
