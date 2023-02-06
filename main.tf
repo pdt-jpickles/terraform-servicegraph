@@ -15,6 +15,7 @@ provider "pagerduty" {
 
 
 # CSV implementation for services
+# The below is based on original code written by Tom Bryant from PagerDuty Professional Services
 locals {
   
   default_esc_pol = pagerduty_escalation_policy.operations.id
