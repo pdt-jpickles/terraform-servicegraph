@@ -22,33 +22,32 @@ locals {
 
   included_files = fileset(path.module, "/include_in_build/*.csv")
 
-  services_data = [for file in local.included_files : csvdecode(file("${path.module}/${file}"))]
+  services_data = {for file in local.included_files : substr(file, 17, length(substr(file, 17, -1))-4) => csvdecode(file("${path.module}/${file}"))}
 
-   
-  all_technical_services = flatten([ for file in local.services_data : { for service in file : "${index(local.services_data, file)}-${service.ServiceID}" => {
+  all_technical_services = flatten([ for file_k, file_v in local.services_data : { for service in file_v : "${file_k}-${service.ServiceID}" => {
     name = service.ServiceName
-    key = "${index(local.services_data, file)}-${service.ServiceID}"
+    key = "${file_k}-${service.ServiceID}"
     description = service.ServiceDescription
     escalation_policy = service.EscPol != "" ? service.EscPol : local.default_esc_pol 
     }
     if service.ServiceType == "service"
   }])
-  
-  all_business_services = flatten([ for file in local.services_data : { for service in file : "${index(local.services_data, file)}-${service.ServiceID}" => {
+
+  all_business_services = flatten([ for file_k, file_v in local.services_data : { for service in file_v : "${file_k}-${service.ServiceID}" => {
     name = service.ServiceName
-    key = "${index(local.services_data, file)}-${service.ServiceID}"
+    key = "${file_k}-${service.ServiceID}"
     description = service.ServiceDescription
     }
     if service.ServiceType == "business_service"
   }])
   
-  service_dependencies = flatten([ for file in local.services_data : flatten([
-    for service in file : [
+  service_dependencies = flatten([ for file_k, file_v in local.services_data : flatten([
+    for service in file_v : [
       for supp_serv in split(";", service.SupportingServices) :  {
-        dependent_service = "${index(local.services_data, file)}-${service.ServiceID}"
+        dependent_service = "${file_k}-${service.ServiceID}"
         dep_service_type = service.ServiceType
-        supporting_service = "${index(local.services_data, file)}-${supp_serv}"
-        supp_service_type = ([for s in file : s.ServiceType if s.ServiceID == supp_serv][0])
+        supporting_service = "${file_k}-${supp_serv}"
+        supp_service_type = ([for s in file_v : s.ServiceType if s.ServiceID == supp_serv][0])
         
       }
     ] 
